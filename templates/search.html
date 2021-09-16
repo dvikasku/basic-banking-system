@@ -1,0 +1,283 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'media/css/jquery.dataTables.min.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Bank of India</title>
+
+    <style>
+      @import "https://fonts.googleapis.com/css?family=Open+Sans:600,700";
+    
+    * {
+      font-family: "Open Sans", sans-serif;
+    }
+    
+    .rwd-table {
+      margin: auto;
+      min-width: 300px;
+      max-width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .rwd-table tr:first-child {
+      border-top: none;
+      background: #428bca;
+      color: #fff;
+    }
+    
+    .rwd-table tr {
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      background-color: #f5f9fc;
+    }
+    
+    .rwd-table tr:nth-child(odd):not(:first-child) {
+      background-color: #ebf3f9;
+    }
+    
+    .rwd-table th {
+      display: none;
+    }
+    
+    .rwd-table td {
+      display: block;
+    }
+    
+    .rwd-table td:first-child {
+      margin-top: 0em;
+    }
+    
+    .rwd-table td:last-child {
+      margin-bottom: 0.5em;
+    }
+    
+    .rwd-table td:before {
+      content: attr(data-th) ": ";
+      font-weight: bold;
+      width: 120px;
+      display: inline-block;
+      color: #000;
+    }
+    
+    .rwd-table th,
+    .rwd-table td {
+      text-align: center;
+    }
+    
+    .rwd-table {
+      color: #333;
+      border-radius: 0.4em;
+      overflow: hidden;
+    }
+    
+    .rwd-table tr {
+      border-color: #bfbfbf;
+    }
+    
+    .rwd-table th,
+    .rwd-table td {
+      padding: 0.5em 1em;
+    }
+    @media screen and (max-width: 601px) {
+      .rwd-table tr:nth-child(2) {
+        border-top: none;
+      }
+    }
+    @media screen and (min-width: 600px) {
+      .rwd-table tr:hover:not(:first-child) {
+        background-color: #d8e7f3;
+      }
+      .rwd-table td:before {
+        display: none;
+      }
+      .rwd-table th,
+      .rwd-table td {
+        display: table-cell;
+        padding: 0.25em 0.5em;
+      }
+      .rwd-table th:first-child,
+      .rwd-table td:first-child {
+        padding-left: 0;
+      }
+      .rwd-table th:last-child,
+      .rwd-table td:last-child {
+        padding-right: 0;
+      }
+      .rwd-table th,
+      .rwd-table td {
+        padding: 1em !important;
+      }
+    }
+    
+    /* THE END OF THE IMPORTANT STUFF */
+    
+    /* Basic Styling */
+    body {
+      background-color: black;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.4em;
+      color: #f2f2f2;
+    }
+    .container {
+      display: block;
+      text-align: center;
+    }
+    h3 {
+      display: inline-block;
+      position: relative;
+      text-align: center;
+      font-size: 1.5em;
+      color: #cecece;
+    }
+    h3:before {
+      content: "\25C0";
+      position: absolute;
+      left: -50px;
+      -webkit-animation: leftRight 2s linear infinite;
+      animation: leftRight 2s linear infinite;
+    }
+    h3:after {
+      content: "\25b6";
+      position: absolute;
+      right: -50px;
+      -webkit-animation: leftRight 2s linear infinite reverse;
+      animation: leftRight 2s linear infinite reverse;
+    }
+    @-webkit-keyframes leftRight {
+      0% {
+        -webkit-transform: translateX(0);
+      }
+      25% {
+        -webkit-transform: translateX(-10px);
+      }
+      75% {
+        -webkit-transform: translateX(10px);
+      }
+      100% {
+        -webkit-transform: translateX(0);
+      }
+    }
+    @keyframes leftRight {
+      0% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-10px);
+      }
+      75% {
+        transform: translateX(10px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    
+    /*
+        Don't look at this last part. It's unnecessary. I was just playing with pixel gradients... Don't judge.
+    */
+    /*
+    @media screen and (max-width: 601px) {
+      .rwd-table tr {
+        background-image: -webkit-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+        background-image: -moz-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+        background-image: -o-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+        background-image: -ms-linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+        background-image: linear-gradient(left, #428bca 137px, #f5f9fc 1px, #f5f9fc 100%);
+      }
+      .rwd-table tr:nth-child(odd) {
+        background-image: -webkit-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+        background-image: -moz-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+        background-image: -o-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+        background-image: -ms-linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+        background-image: linear-gradient(left, #428bca 137px, #ebf3f9 1px, #ebf3f9 100%);
+      }
+    }*/
+    
+    </style>
+  </head>
+  <body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">SPARK BANK</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link " href="/">Home</a>
+      </li><li class="nav-item ">
+        <a class="nav-link active" href="/home">Transfer Money</a>
+      </li></li><li class="nav-item">
+        <a class="nav-link " href="/transactions">Transaction History</a>
+      </li>
+    </ul>
+      <form method="get" action="/search" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query" id="query">
+            <button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Search</button>
+      </form>
+  </div>
+</nav>
+
+
+<div class="container my-3 my-5">
+    {% if users|length < 1 %}
+<p>No search results</p>
+{% else %}
+    <table class="table text-center rwd-table" id="myTable">
+  <thead class="thead-dark">
+    
+  </thead>
+  <tbody class="">
+    <tr >
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Balance</th>
+      <th scope="col">Action</th>
+    </tr>
+
+  {% for user in users %}
+
+    <tr>
+      <td scope="row">{{forloop.counter}}</td>
+      <td>{{user.cust_name}}</td>
+      <td>{{user.email}}</td>
+      <td>₹{{user.balance}}</td>
+      <td>
+      <a class="btn btn-primary" href="sendmoney/{{user.id}}" role="button">Transact</a>
+      </td>
+    </tr>
+
+  {% endfor %}
+  </tbody>
+</table>
+
+    </div>
+  {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'media/js/jquery.dataTables.min.js' %}"></script>
+    <script>
+     $(document).ready(function(){
+	   $("#myTable").dataTable();
+	 });
+
+   </script>
+  </body>
+</html>
